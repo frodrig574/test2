@@ -3,7 +3,7 @@ html, body {
 }
 header
 {
-	border: 1px solid;
+	border: 2px solid;
 	width: 100%;
 	background: -moz-linear-gradient(left, rgba(28,28,28,0.8) 0%, rgba(89,89,89,0.8) 38%, rgba(89,89,89,0.8) 52%, rgba(38,38,38,0.8) 98%, rgba(38,38,38,0.8) 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(left, rgba(28,28,28,0.8) 0%,rgba(89,89,89,0.8) 38%,rgba(89,89,89,0.8) 52%,rgba(38,38,38,0.8) 98%,rgba(38,38,38,0.8) 100%); /* Chrome10-25,Safari5.1-6 */
