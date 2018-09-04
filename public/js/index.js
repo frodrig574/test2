@@ -11,6 +11,11 @@ $(document).on("click",".addsalida",function()
 		$("#addSalida").css("display","block");
 		$(".listSalida").css("display","none");
 	});
+$(document).on("click",".addusuarios",function()
+	{
+		$("#addUsuarios").css("display","block");
+		$(".listUser").css("display","none");
+	});
 $(document).on("click","#cancelDocuments",function()
 	{
 		$("#addDocuments").css("display","none");
@@ -31,6 +36,16 @@ $(document).on("click","#cancelDocuments",function()
   	}
 
   	});
+$(document).on("click","#cancelUsuarios",function()
+  {
+    $("#addUsuarios").css("display","none");
+    $(".listUser").css("display","block");
+      $(".err > p").remove();
+  if($("#inputhide >#id").length){
+    $("#inputhide >#id").remove();
+  }
+
+  });
 //Peticiones ajax
 //lista de roles
 $(document).ready(function()
@@ -54,6 +69,16 @@ $(document).ready(function()
       ).fail(function()
       {
         $(".listSalida").append('<div class="messageNullRol">No hay documentos registrados</div>');
+      });
+      $.ajax({
+        url:"http://localhost/test/ajax_selection/selectUsuarios",
+      }).done(function(dataRol)
+      {
+        $(".listUser").append(dataRol);
+      }
+      ).fail(function()
+      {
+        $(".listUser").append('<div class="messageNullRol">No hay Usuarios registrados</div>');
       });
 	});
 
@@ -96,6 +121,21 @@ var editSalida = function(id){
 	});
 
 };
+var editUsers = function(id){
+	$("#addUsuarios").css("display","block");
+	$(".listUser").css("display","none");
+  $("#inputhide").append("<input type='hidden' id='id' name='id' value='"+id+"'>");
+  $.ajax({
+		url:"http://localhost/test/ajax_selection/selectUsuariosId/"+id,
+	}).done(function(data)
+	{
+		var dat = JSON.parse(data);
+		$("#user").val(dat[0].user);
+		$("#password").val(dat[0].pass);
+		$("#confirm").val(dat[0].pass);
+	});
+
+};
 var deleteEntrada = function(id)
 {
 	var sus = confirm("Seguro que deseas eliminar este documento ");
@@ -110,5 +150,13 @@ var deleteSalida = function(id)
 	if(sus==true)
 	{
 		window.location="/test/userlog/deleteSalida/"+id;
+	}
+}
+var deleteUsuario = function(id)
+{
+	var sus = confirm("Seguro que deseas eliminar este Usuario ");
+	if(sus==true)
+	{
+		window.location="/test/userlog/deleteUsuario/"+id;
 	}
 }

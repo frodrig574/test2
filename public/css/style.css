@@ -362,7 +362,7 @@ nav ul li:hover,nav ul li:hover>a
 	border:1px solid silver;
 	border-radius:5px;
 }
-.addDocuments,.addSalida
+.addDocuments,.addSalida, .addUsuarios
 {
 	/* cursor:pointer; */
 	display: none;

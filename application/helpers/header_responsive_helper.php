@@ -16,6 +16,7 @@
 	$header .= '<div class="collapse navbar-collapse" id="myNavbar">';
 	$header .= '<ul class="nav navbar-nav">';
 	$header .= '<li><a href="'.base_url().'userlog/">Inicio</a></li>';
+	$header .= '<li><a href="'.base_url().'userlog/users">usuarios</a></li>';
 	$header .= '<li><a href="'.base_url().'userlog/entrada">documentos de entrada</a></li>';
 	$header .= '<li><a href="'.base_url().'userlog/salida">documentos de salida</a></li>';
 	$header .= '<li class="logoutList"><a href="'.base_url().'Userlog/session_finish"><div class="imgLogout"><p class="logoutP">Cerrar Sesión</p></div></a></li>';
