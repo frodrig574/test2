@@ -32,7 +32,8 @@ $pass_confirmation=array(
 $saveuser=array(
 	"name"=>"save",
 	"value" => "Guardar",
-	"class" => "btn btn-info"
+	"class" => "btn btn-info validate",
+	"disabled" => "disabled"
 	);
 $cancel=array(
 	"name" => "cancel",
@@ -47,7 +48,7 @@ $cancel=array(
 		<div class="content-form-rol">
 			<header><p>usuarios</p><i class="icons fa fa-plus-circle addusuarios" ></i></header>
 			<div class="addUsuarios" id="addUsuarios">
-				<?=form_open(base_url()."Userlog/addUsuarios")?>
+				<?=form_open(base_url()."Userlog/addUsers")?>
 					<div class="row">
 						<div class="col-sm-12" style="padding:40px;">
 							<div class="form-group">

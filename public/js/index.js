@@ -71,7 +71,7 @@ $(document).ready(function()
         $(".listSalida").append('<div class="messageNullRol">No hay documentos registrados</div>');
       });
       $.ajax({
-        url:"http://localhost/test/ajax_selection/selectUsuarios",
+        url:"http://localhost/test/ajax_selection/selectUsers",
       }).done(function(dataRol)
       {
         $(".listUser").append(dataRol);
@@ -126,13 +126,12 @@ var editUsers = function(id){
 	$(".listUser").css("display","none");
   $("#inputhide").append("<input type='hidden' id='id' name='id' value='"+id+"'>");
   $.ajax({
-		url:"http://localhost/test/ajax_selection/selectUsuariosId/"+id,
+		url:"http://localhost/test/ajax_selection/selectUserId/"+id,
 	}).done(function(data)
 	{
 		var dat = JSON.parse(data);
 		$("#user").val(dat[0].user);
-		$("#password").val(dat[0].pass);
-		$("#confirm").val(dat[0].pass);
+		$("#user").attr("readOnly","true");
 	});
 
 };
@@ -152,11 +151,26 @@ var deleteSalida = function(id)
 		window.location="/test/userlog/deleteSalida/"+id;
 	}
 }
-var deleteUsuario = function(id)
+var deleteUser = function(id)
 {
 	var sus = confirm("Seguro que deseas eliminar este Usuario ");
 	if(sus==true)
 	{
-		window.location="/test/userlog/deleteUsuario/"+id;
+		window.location="/test/userlog/deleteUser/"+id;
 	}
 }
+// confirm pass
+$(document).on("keyup","#confirm",function(){
+  if($("#confirm").val()==$("#pass").val()){
+    $(".validate").removeAttr("disabled");
+  }else{
+    $(".validate").attr("disabled","disabled");
+  }
+});
+$(document).on("keyup","#pass",function(){
+  if($("#confirm").val()==$("#pass").val()){
+    $(".validate").removeAttr("disabled");
+  }else{
+    $(".validate").attr("disabled","disabled");
+  }
+});

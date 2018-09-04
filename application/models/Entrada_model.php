@@ -30,7 +30,16 @@ class Entrada_model extends CI_Model
 			"tipo" => $tipo,
 			"resumen" => $resumen
 			);
-		$this->db->insert("entrada",$data);
+			$this->db->select("*");
+			$this->db->from("entrada");
+			$this->db->where("numero",$numero);
+			$result = $this->db->get();
+			$cont = $result ->row();
+			if($cont==null)
+			{
+			$this->db->insert("entrada",$data);
+			}
+		return $cont;
 	}
 	public function update_entrada($id,$numero,$fecha,$fecha_recibido,$dependencia,$asunto,$tipo,$resumen)
 	{

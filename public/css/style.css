@@ -362,10 +362,13 @@ nav ul li:hover,nav ul li:hover>a
 	border:1px solid silver;
 	border-radius:5px;
 }
-.addDocuments,.addSalida, .addUsuarios
+.addDocuments,.addSalida
 {
 	/* cursor:pointer; */
 	display: none;
+}
+#addUsuarios{
+  display: none;
 }
 .rolItem
 {

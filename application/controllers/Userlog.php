@@ -62,6 +62,7 @@ class Userlog extends CI_Controller
 			if(!$this->input->post("id"))
 			{
 				$insertEntrada = $this->entrada_model->insert_entrada($numero,$fecha,$fecha_recibido,$dependencia,$asunto,$tipo,$resumen);
+				if($insertEntrada==0){
 					$this->form_validation->set_rules("numero","numero","required");
 					$this->form_validation->set_rules("fecha","fecha","required");
 					$this->form_validation->set_rules("fecha_recibido","fecha_recibido","required");
@@ -76,6 +77,9 @@ class Userlog extends CI_Controller
 					{
 						$this->session->set_flashdata('messageRol','¡Falto llenar algunos campos!');
 					}
+				}else{
+					$this->session->set_flashdata('messageRol','¡Documento ya registrado!');
+				}
 			}
 			else
 			{
@@ -139,6 +143,7 @@ class Userlog extends CI_Controller
 			if(!$this->input->post("id"))
 			{
 				$insertSalida = $this->salida_model->insert_salida($numero,$fecha,$fecha_recibido,$dependencia,$asunto,$tipo,$resumen);
+				if($insertSalida==0){
 					$this->form_validation->set_rules("numero","numero","required");
 					$this->form_validation->set_rules("fecha","fecha","required");
 					$this->form_validation->set_rules("fecha_recibido","fecha_recibido","required");
@@ -153,6 +158,9 @@ class Userlog extends CI_Controller
 					{
 						$this->session->set_flashdata('messageRol','¡Falto llenar algunos campos!');
 					}
+				}else{
+					$this->session->set_flashdata('messageRol','¡Documento ya registrado!');
+				}
 			}
 			else
 			{
@@ -205,58 +213,52 @@ public function users()
 {
 	if($this->session->userdata('login'))
 	{
-		$this->load->model("salida_model");
-		$numero =$this->input->post("numero");
-		$fecha =$this->input->post("fecha");
-		$fecha_recibido =$this->input->post("fecha_recibido");
-		$dependencia=$this->input->post("dependencia");
-		$tipo=$this->input->post("tipo");
-		$asunto=$this->input->post("asunto");
-		$resumen=$this->input->post("resumen");
+		$this->load->model("user_model");
+		$user =$this->input->post("user");
+		$pass =$this->input->post("pass");
 		if(!$this->input->post("id"))
 		{
-			$insertSalida = $this->salida_model->insert_salida($numero,$fecha,$fecha_recibido,$dependencia,$asunto,$tipo,$resumen);
-				$this->form_validation->set_rules("numero","numero","required");
-				$this->form_validation->set_rules("fecha","fecha","required");
-				$this->form_validation->set_rules("fecha_recibido","fecha_recibido","required");
-				$this->form_validation->set_rules("asunto","asunto","required");
-				$this->form_validation->set_rules("tipo","tipo","required");
-				$this->form_validation->set_rules("resumen","resumen","required");
-				$this->form_validation->set_rules("dependencia","dependencia","required");
+			$insertUser = $this->user_model->insert_user($user,$pass);
+			if($insertUser==0){
+				$this->form_validation->set_rules("user","user","required");
+				$this->form_validation->set_rules("pass","pass","required");
 				if($this->form_validation->run()==true)
 				{
-					$this->session->set_flashdata('messageRol','¡Documento registrado exitosamente!');
+					$this->session->set_flashdata('messageRol','¡Usuario registrado exitosamente!');
 				}else
 				{
 					$this->session->set_flashdata('messageRol','¡Falto llenar algunos campos!');
 				}
+			}else{
+				$this->session->set_flashdata('messageRol','¡Usuario ya registrado!');
+			}
 		}
 		else
 		{
-			$updateSalida = $this->salida_model->update_salida($this->input->post("id"),$numero,$fecha,$fecha_recibido,$dependencia,$asunto,$tipo,$resumen);
+			$updateUser = $this->user_model->update_user($this->input->post("id"),$user,$pass);
 			if($this->form_validation->run()==true)
 			{
 				$this->session->set_flashdata('messageRol','¡Falto llenar algunos campos!');
 			}else
 			{
-				$this->session->set_flashdata('messageRol','¡Documento modoficado exitosamente!');
+				$this->session->set_flashdata('messageRol','¡Usuario modoficado exitosamente!');
 			}
 		}
-		redirect("/userlog/salida");
+		redirect("/userlog/users");
 	}else
 	{
 		redirect("/session_user");
 		delete_cookie("login",$domain,$path);
 	}
 }
-public function deleteUsers($id)
+public function deleteUser($id)
 {
 	if($this->session->userdata('login'))
 	{
-		$this->load->model("Salida_model");
-		$this->Salida_model->delete_salida($id);
-		$this->session->set_flashdata("messageRol",'¡El Documento ha sido eliminado!');
-		redirect("/userlog/salida");
+		$this->load->model("user_model");
+		$this->user_model->delete_user($id);
+		$this->session->set_flashdata("messageRol",'¡El Usuario ha sido eliminado!');
+		redirect("/userlog/users");
 	}
 	else
 	{
